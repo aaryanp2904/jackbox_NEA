@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .button {
+            background-color: blue;
+            width: 200px;
+            font-size: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+        #game-area {
+            padding-left: 800px;
+            padding-top: 300px;
+        }
+
+        #startGame {
+            margin: auto;
+            padding: 10px;
+        }
+
+        #startArea {
+            padding-left: 800px;
+            padding-top: 400px;
+        }
+        
+    </style>
+
+    <div id="game-area">
+        <button id="create">Create game</button>
+    </div>
+    <div id="names"></div>
+    <div id="startArea">
+        <button id="startGame">Start Game</button>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+    <script>
+        var socket = io()
+        let screen = document.getElementById('game-area')
+        let nameList = document.getElementById('names')
+        let createGamebtn = document.getElementById('create')
+
+        let startGamebtn = document.getElementById('startGame')
+        startGamebtn.style.display = 'none'
+        startGamebtn.disabled = true
+
+        createGamebtn.addEventListener('click', function () {
+            socket.emit('create-room')
+            createGamebtn.style.display = 'none'
+        })
+
+        socket.on('room-details-code', data => {
+            sessionStorage.setItem('room-code', data)
+            screen.textContent = "The room code is: " + sessionStorage.getItem('room-code')
+            startGamebtn.style.display = 'block'
+        })
+
+        socket.on('player-list', data => {
+            nameList.textContent = data
+            if (data.length > 0) {
+                startGamebtn.disabled = false;
+            }
+        })
+
+        startGamebtn.addEventListener('click', function () {
+            socket.emit('game-ready', sessionStorage.getItem('room-code'))
+            console.log('ready')
+        })
+
+        socket.on('game-started', data => {
+            startGamebtn.style.display = 'none'
+        })
+
+        socket.on('choosing', data => {
+            screen.textContent = data + ' is choosing an option...'
+        })
+
+        socket.on('opinion', data => {
+            screen.textContent = data + ' has chosen the opinion option.'
+        })
+
+
+
+
+    </script>
+</body>
+
+</html>
