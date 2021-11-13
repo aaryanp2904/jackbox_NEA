@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        * {
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: #212121;
+            color: #fff;
+            font-family: monospace, serif;
+            letter-spacing: 0.05em;
+        }
+
+        #room-details {
+            position: absolute;
+            left: 415px;
+            right: 10px;
+            width: 1450px;
+            height: 100px;
+            border-style: solid;
+            border-color: red;
+            border-radius: 25px;
+        }
+
+        #host-game-area {
+            position: absolute;
+            left: 415px;
+            right: 10px;
+            width: 1450px;
+            height: 778px;
+            top: 130px;
+            border-style: solid;
+            border-color: green;
+            border-radius: 25px;
+        }
+
+        #players-list {
+            position: absolute;
+            left: 10px;
+            right: 900px;
+            width: 375px;
+            height: 900px;
+            top: 10px;
+            border-style: solid;
+            border-color: blue;
+            padding: 2em;
+            border-radius: 25px;
+        }
+
+
+        button {
+            background-color: blue;
+            width: 200px;
+            font-size: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            left: 575px;
+            top: 25px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="/css/styles.css"/>
+
+    <div id="room-details" class="control block-cube">
+        <!-- <button id="create">Create game</button> -->
+        <button class='btn block-cube block-cube-hover' type='button' id="create-game-btn">
+            <div class='bg-top'>
+                <div class='bg-inner'></div>
+            </div>
+            <div class='bg-right'>
+                <div class='bg-inner'></div>
+            </div>
+            <div class='bg'>
+                <div class='bg-inner'></div>
+            </div>
+            <div class='text'>
+                Create Game
+            </div>
+        </button>
+    </div>
+    <div id="players-list">
+        <div id="player-disconnects"></div>
+    </div>
+    <div id="host-game-area">
+        <button class='btn block-cube block-cube-hover' type='button' id="start-game-btn">
+            <div class='bg-top'>
+                <div class='bg-inner'></div>
+            </div>
+            <div class='bg-right'>
+                <div class='bg-inner'></div>
+            </div>
+            <div class='bg'>
+                <div class='bg-inner'></div>
+            </div>
+            <div class='text'>
+                Start Game
+            </div>
+        </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+    <script src="/js/host2.js"></script>
+</body>
+
+</html>
